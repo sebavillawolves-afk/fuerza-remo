@@ -19,7 +19,7 @@
   /* Ficha de entrenamiento: neutros fríos verdosos, naranja de señal para fuerza, azul agua para remo */
   --bg:#eef1f0; --surface:#ffffff; --ink:#15201d; --muted:#5a6864; --line:#d3dbd8; --soft:#e6ebe9;
   --accent:#d94a0b; --accent-ink:#ffffff; --row:#1b6a86; --ok:#23794b; --warn:#9a6508; --bad:#b3261e;
-  --fig:#15201d; --fig2:#a3b0ac; --prop:#cbd4d1;
+  --fig:#15201d; --fig2:#a3b0ac; --prop:#cbd4d1; --skin:#d39a74; --skin2:#b58565; --shorts:#4f6f86; --shorts2:#8ea2b0; --hair:#3a2a20;
   --m1:#d94a0b; --m2:#1b6a86; --m3:#23794b; --m4:#8a3fa0; --m5:#b0306a; --m6:#5a6b00; --m7:#3b55c4;
   padding-top:env(safe-area-inset-top,0px);padding-left:env(safe-area-inset-left,0px);padding-right:env(safe-area-inset-right,0px);
   --display:"Barlow Condensed","Arial Narrow",Arial,sans-serif; --body:"Barlow","Segoe UI",system-ui,sans-serif;
@@ -27,11 +27,11 @@
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --bg:#0f1514; --surface:#18201e; --ink:#e7eeeb; --muted:#93a29d; --line:#2a3532; --soft:#202a27;
   --accent:#ff7a3d; --accent-ink:#1b0c03; --row:#62b9d4; --ok:#5ec98f; --warn:#e2b257; --bad:#f2a19b;
-  --fig:#e7eeeb; --fig2:#56635f; --prop:#35423e; --m1:#ff7a3d; --m2:#62b9d4; --m3:#5ec98f; --m4:#c58be0; --m5:#f07fb0; --m6:#c2cf5a; --m7:#8fa2ff; color-scheme:dark;}}
+  --fig:#e7eeeb; --fig2:#56635f; --prop:#35423e; --skin:#dba682; --skin2:#9c7358; --shorts:#6f9bb8; --shorts2:#46606f; --hair:#7a5740; --m1:#ff7a3d; --m2:#62b9d4; --m3:#5ec98f; --m4:#c58be0; --m5:#f07fb0; --m6:#c2cf5a; --m7:#8fa2ff; color-scheme:dark;}}
 :root[data-theme="dark"]{
   --bg:#0f1514; --surface:#18201e; --ink:#e7eeeb; --muted:#93a29d; --line:#2a3532; --soft:#202a27;
   --accent:#ff7a3d; --accent-ink:#1b0c03; --row:#62b9d4; --ok:#5ec98f; --warn:#e2b257; --bad:#f2a19b;
-  --fig:#e7eeeb; --fig2:#56635f; --prop:#35423e; --m1:#ff7a3d; --m2:#62b9d4; --m3:#5ec98f; --m4:#c58be0; --m5:#f07fb0; --m6:#c2cf5a; --m7:#8fa2ff; color-scheme:dark;}
+  --fig:#e7eeeb; --fig2:#56635f; --prop:#35423e; --skin:#dba682; --skin2:#9c7358; --shorts:#6f9bb8; --shorts2:#46606f; --hair:#7a5740; --m1:#ff7a3d; --m2:#62b9d4; --m3:#5ec98f; --m4:#c58be0; --m5:#f07fb0; --m6:#c2cf5a; --m7:#8fa2ff; color-scheme:dark;}
 *{box-sizing:border-box}
 html,body{margin:0}
 html{-webkit-text-size-adjust:100%;scroll-padding-top:calc(env(safe-area-inset-top,0px) + 52px)}
@@ -98,7 +98,9 @@ main{display:flex;flex-direction:column;gap:18px;padding-top:20px}
 .figbox{background:var(--soft);border-radius:8px;padding:6px;display:flex;flex-direction:column;gap:6px}
 svg.anim{display:block;width:100%;height:auto}
 .fg,.fg2{fill:none;stroke:var(--fig);stroke-width:5;stroke-linecap:round;stroke-linejoin:round}
-.fg2{stroke:var(--fig2)} .hd{fill:var(--fig)} .gr{stroke:var(--fig2);stroke-width:1.5}
+.fg2{stroke:var(--fig2)} .hd{fill:var(--fig)}
+.ln{fill:none;stroke-linecap:round} .sk{stroke:var(--skin)} .sk2{stroke:var(--skin2)} .sh{stroke:var(--fig)} .sh2{stroke:var(--fig2)} .st{stroke:var(--shorts)} .st2{stroke:var(--shorts2)} .so{stroke:var(--fig)} .so2{stroke:var(--fig2)} .halo{stroke:var(--soft)}
+.tor{fill:var(--fig);stroke:var(--fig);stroke-width:5;stroke-linejoin:round} .fsk{fill:var(--skin)} .fsk2{fill:var(--skin2)} .fst{fill:var(--shorts)} .hair{fill:var(--hair)} .gr{stroke:var(--fig2);stroke-width:1.5}
 .prop{fill:var(--prop)} .propl{stroke:var(--prop);stroke-width:6;stroke-linecap:round}
 .db{fill:var(--accent)} .band{stroke:var(--row);stroke-width:2.2} .whl{fill:none;stroke:var(--accent);stroke-width:3}
 .nt{font:8px var(--body);fill:var(--muted)}
@@ -216,7 +218,7 @@ calf1:{toe:[108,127],props:[['box',94,128,32,7]],k:[{h:[98,77],t:-90,hd:[[102,80
 wheel:{wheel:1,foot:[-8,3],k:[{h:[66,104],t:-25,hd:[[104,126]],ft:[[36,131]]},{h:[84,116],t:-5,hd:[[156,126]]}]},
 plank:{foot:[-3,4],still:1,k:[{h:[93,120.8],t:-11,hd:[[146,133]],ft:[[40,131]]},{h:[93,121.6]}]},
 pike:{foot:[-3,4],k:[{h:[86,82],t:40,hd:[[128,134]],ft:[[62,131]]},{h:[88,86],t:46}]},
-proneW:{foot:[8,1],k:[{h:[110,127],t:180,hd:[[50,130]],ft:[[163,130]]},{t:190,hd:[[66,110]]}]},
+proneW:{face:-1,foot:[8,1],k:[{h:[110,127],t:180,hd:[[50,130]],ft:[[163,130]]},{t:190,hd:[[66,110]]}]},
 legraise:{k:[{h:[92,128],t:180,hd:[[94,132]],ft:[[144,124]]},{ft:[[130,90]]},{ft:[[96,76]]}]}
 };
 /* normaliza: cada pose hereda de la anterior lo que no declara */
@@ -253,14 +255,22 @@ function figure(key,ov,u){
   if(d.band==='foot'&&legs.length)o+=band(legs[0][2],hands[0]);
   if(d.band==='neck'&&legs.length)o+=band(legs[0][2],N);
   if(d.band==='feet'&&legs.length)o+=band(legs[0][2],hands[0])+band(legs[1][2],hands[1]);
-  const far=fr?'fg':'fg2';
-  if(legs[1])o+=pl(legs[1],far);
-  o+=pl(arms[1],far);
-  if(tl>0)o+=pl([H,N],'fg');
-  if(fr)o+=pl(S,'fg')+(d.nolegs?'':pl(HP,'fg'));
-  if(legs[0])o+=pl(legs[0],'fg');
-  o+=`<circle class="hd" cx="${n1(HD[0])}" cy="${n1(HD[1])}" r="8"/>`;
-  o+=pl(arms[0],'fg');
+  // Cuerpo con volumen: piel, polera, short y zapatillas; las extremidades del lado lejano van más apagadas
+  const L=(p,q,w,c)=>`<line class="ln ${c}" x1="${n1(p[0])}" y1="${n1(p[1])}" x2="${n1(q[0])}" y2="${n1(q[1])}" stroke-width="${w}"/>`;
+  const C=(p,r,c)=>`<circle class="${c}" cx="${n1(p[0])}" cy="${n1(p[1])}" r="${r}"/>`;
+  const arm=(m,far,halo)=>(halo?L(m[0],m[1],12,'halo')+L(m[1],m[2],10.5,'halo'):'')+L(m[0],m[1],7.5,far?'sk2':'sk')+L(m[1],m[2],6,far?'sk2':'sk')+L(m[0],mixP(m[0],m[1],.45),8.5,far?'sh2':'sh')+C(m[2],3.6,far?'fsk2':'fsk');
+  const leg=(m,far)=>L(m[0],m[1],10.5,far?'sk2':'sk')+L(m[1],m[2],8,far?'sk2':'sk')+L(m[0],mixP(m[0],m[1],.6),12,far?'st2':'st')+L(m[2],m[3],6,far?'so2':'so');
+  const P=[-dir[1],dir[0]],fs=d.face||1;
+  if(legs[1])o+=leg(legs[1],!fr);
+  if(!fr)o+=arm(arms[1],true,false);
+  o+=L(N,HD,5.5,'sk');
+  const tp=fr?[S[0],S[1],HP[1],HP[0]]:[[H[0]-P[0]*4.5,H[1]-P[1]*4.5],[N[0]-P[0]*5.5,N[1]-P[1]*5.5],[N[0]+P[0]*5.5,N[1]+P[1]*5.5],[H[0]+P[0]*4.5,H[1]+P[1]*4.5]];
+  o+=`<polygon class="tor" points="${tp.map(pt).join(' ')}"/>`;
+  if(!d.nolegs)o+=fr?L(HP[0],HP[1],11,'st'):C(H,6.5,'fst');
+  if(legs[0])o+=leg(legs[0],false);
+  o+=C(HD,8,'hair')+C(fr?[HD[0]-dir[0]*1.6,HD[1]-dir[1]*1.6]:[HD[0]+P[0]*fs*2-dir[0]*1.2,HD[1]+P[1]*fs*2-dir[1]*1.2],7,'fsk');
+  if(fr)o+=arm(arms[1],false,true);
+  o+=arm(arms[0],false,true);
   if(d.band==='hands')o+=band(hands[0],hands[1]);
   const dbs=h=>`<circle class="db" cx="${n1(h[0])}" cy="${n1(h[1])}" r="5"/>`;
   const dbf=h=>`<rect class="db" x="${n1(h[0]-8)}" y="${n1(h[1]-3.5)}" width="16" height="7" rx="2"/>`;
@@ -350,9 +360,16 @@ A:{foco:'Sentadilla, empuje horizontal y remo',s:[['Piernas','main',[['squat'],[
 B:{foco:'Estocada, bisagra de cadera y remo inclinado',s:[['Piernas','main',[['lunge'],['lungeDb'],['bulg']]],['Isquiotibiales y glúteos','acc',[['gm','bridge'],['rdl','bridgeDb'],['rdl','thrust']]],['Pecho','main',[['pushupFeet'],['floorpressN'],['incline']]],['Espalda','main',[['bandBent'],['dbBent']]],['Hombros','acc',[['bandLat','bandPress'],['dbLat','dbPress'],['dbLat','pressSeated']]],['Bíceps','acc',[['bandHammer','bandCurl'],['dbHammer','dbCurl'],['dbHammer','inclineCurl']]],['Tríceps','acc',[['diamond','bandOH'],['kickback','dbOH'],['benchDip','skull']]],['Pantorrillas','calf',[['calf1','calf'],['calf1Db','calfDb']]],['Abdomen','core',[['plank','wheel']]]]},
 C:{foco:'Sentadilla sumo, glúteo a una pierna y pecho con pausa',s:[['Piernas','main',[['sumo'],['sumoDb']]],['Glúteos','acc',[['bridge1','gm'],['bridge1'],['bridgeDb']]],['Pecho','main',[['pushupPause'],['fly'],['flyBench']]],['Espalda','main',[['bandRowW'],['pullover'],['pulloverBench']]],['Hombros','acc',[['pullapart']]],['Bíceps','acc',[['bandCurl','bandHammer'],['dbCurl','dbHammer'],['inclineCurl','dbHammer']]],['Tríceps','acc',[['chairDip','diamond'],['chairDip'],['dbOH','kickback']]],['Pantorrillas','calf',[['calf','calf1'],['calfDb','calf1Db']]],['Abdomen','core',[['legraise','plank']]]]}
 };
+// Modalidad por grupo muscular: cada grupo una vez por semana, con más ejercicios y series por grupo
+const RUT_S={
+A:{foco:'Pecho, hombros y tríceps',s:[['Pecho','main',[['pushup'],['floorpress'],['benchpress']]],['Pecho superior','main',[['pushupFeet'],['floorpressN'],['incline']]],['Pecho','acc',[['pushupPause'],['fly'],['flyBench']]],['Hombros','main',[['bandPress'],['dbPress'],['pressSeated']]],['Hombros','acc',[['bandLat'],['dbLat']]],['Tríceps','acc',[['bandOH','chairDip'],['dbOH','kickback'],['skull','benchDip']]],['Tríceps','acc',[['diamond'],['kickback','dbOH'],['benchDip','skull']]]]},
+B:{foco:'Espalda, bíceps y abdomen',s:[['Espalda','main',[['bandRow'],['row1'],['row1b']]],['Espalda','main',[['bandBent'],['dbBent']]],['Espalda alta','acc',[['bandRowW'],['pullover'],['pulloverBench']]],['Deltoides posterior','acc',[['pullapart']]],['Bíceps','acc',[['bandCurl'],['dbCurl'],['inclineCurl']]],['Bíceps','acc',[['bandHammer'],['dbHammer']]],['Abdomen','core',[['wheel','plank']]]]},
+C:{foco:'Piernas, glúteos y abdomen',s:[['Piernas','main',[['squat'],['goblet']]],['Piernas','main',[['lunge'],['lungeDb'],['bulg']]],['Isquiotibiales','acc',[['gm'],['rdl']]],['Glúteos','acc',[['bridge1','bridge'],['bridgeDb'],['thrust']]],['Aductores','acc',[['sumo'],['sumoDb']]],['Pantorrillas','calf',[['calf','calf1'],['calfDb','calf1Db']]],['Abdomen','core',[['legraise','wheel']]]]}
+};
 const FASES=[null,{n:'Base',d:'Series más largas con peso moderado. Termina cada serie sintiendo que podrías hacer 2 o 3 repeticiones más.'},{n:'Carga',d:'Más peso y menos repeticiones en los ejercicios principales. Termina cada serie con 1 o 2 repeticiones en reserva.'},{n:'Descarga',d:'Semana liviana para recuperar: 2 series por ejercicio con el mismo peso, lejos del fallo.'}];
 const BW=8;
 const TYPES={A:'Fuerza A',B:'Fuerza B',C:'Fuerza C',R:'Remo',X:'Descanso'};
+const TYPES_S={A:'A · Pecho, hombros, tríceps',B:'B · Espalda, bíceps',C:'C · Piernas, glúteos'};
 const DN=['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo'],DS=['Lun','Mar','Mié','Jue','Vie','Sáb','Dom'],MS=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
 
 /* ===== Utilidades ===== */
@@ -394,14 +411,15 @@ async function initDb(){
 const STANDALONE=!window.claude;
 /* ===== Lógica del plan ===== */
 let sel=TODAY,rtab='A';const open=new Set();
+const split=()=>state.mode==='split',rut=()=>split()?RUT_S:RUT,pk=(r,i)=>(split()?'s':'')+r+i,tname=k=>(split()&&TYPES_S[k])||TYPES[k];
 const weekOf=d=>Math.round((parse(monday(d))-parse(state.start))/6048e5)+1;
 const blockOf=w=>Math.floor((Math.max(w,1)-1)/BW)+1,wbOf=w=>((Math.max(w,1)-1)%BW)+1;
 const phaseOf=w=>{const k=wbOf(w);return k<=3?1:k<=7?2:3;};
 function presc(w,kind,ex){const p=phaseOf(w),q=p===3?2:p;let s,r,t;
-  if(kind==='main')[s,r,t]=[[3,'12-15',60],[4,'8-12',90]][q-1];
+  if(kind==='main')[s,r,t]=(split()?[[4,'8-12',90],[4,'6-10',120]]:[[3,'12-15',60],[4,'8-12',90]])[q-1];
   else if(kind==='calf')[s,r,t]=[3,'15-20',45];
   else if(kind==='core'){s=3;r=ex.r[q-1];t=45;}
-  else [s,r,t]=[[3,'12-15',60],[3,'10-15',60]][q-1];
+  else [s,r,t]=(split()?[[3,'10-15',60],[3,'8-12',75]]:[[3,'12-15',60],[3,'10-15',60]])[q-1];
   if(p===3||w<=1)s=2;return {sets:s,reps:r,rest:t};}
 const typeOf=d=>(state.log[d]&&state.log[d].type)||state.sched[wd(d)];
 const noBand=o=>[...new Set(o.map(x=>ALT[x]||x))];
@@ -409,7 +427,7 @@ function tiers(o){const e=state.equip;return [e.band===false?noBand(o[0]):o[0],e
 // Las variantes sin banda siempre se ofrecen en "Cambiar variante", aunque haya bandas
 function avail(o){return [...new Set(tiers(o).flat().concat(noBand(o[0])))];}
 const harder=()=>state.equip.band===false?'una mochila con más peso':'una banda más dura o una mochila con peso';
-function chosen(r,i,b){const o=RUT[r].s[i][2],t=tiers(o),top=t[t.length-1],p=state.pick[r+i];
+function chosen(r,i,b){const o=rut()[r].s[i][2],t=tiers(o),top=t[t.length-1],p=state.pick[pk(r,i)];
   if(p&&p.b===b&&avail(o).includes(p.id))return p.id;return top[(b-1)%top.length];}
 function entry(d,create){if(!state.log[d]&&create)state.log[d]={type:typeOf(d),ex:{}};const e=state.log[d];if(e&&!e.ex)e.ex={};return e;}
 function histOf(id,before,n){const out=[];for(const d of Object.keys(state.log).filter(d=>d<before).sort().reverse()){const x=state.log[d].ex&&state.log[d].ex[id];if(x&&x.some(q=>q&&q.ok)){out.push({d,s:x.filter(q=>q&&q.ok)});if(out.length>=n)break;}}return out;}
@@ -429,10 +447,10 @@ function target(id,ex,kind,rx,w,d){const h=histOf(id,d,3),m=rx.reps.split('-').m
 /* ===== Vistas ===== */
 function weekStrip(){const m=monday(sel);let h='<div class="week">';
   for(let i=0;i<7;i++){const d=addDays(m,i),t=typeOf(d),c=t==='R'?'R':t==='X'?'X':'F',done=state.log[d]&&state.log[d].done;
-    h+=`<button type="button" class="day ${c}${d===sel?' sel':''}${d===TODAY?' today':''}${done?' done':''}" data-act="day" data-d="${d}" aria-label="${DN[i]} ${fdate(d)}: ${TYPES[t]}${done?', hecho':''}"><span class="dn">${DS[i]} ${parse(d).getDate()}</span><span class="dt">${t==='X'?'Libre':t==='R'?'Remo':t}</span><span class="st">${done?'Hecho':t==='X'?'·':d<TODAY?'Sin registro':'Pendiente'}</span></button>`;}
+    h+=`<button type="button" class="day ${c}${d===sel?' sel':''}${d===TODAY?' today':''}${done?' done':''}" data-act="day" data-d="${d}" aria-label="${DN[i]} ${fdate(d)}: ${tname(t)}${done?', hecho':''}"><span class="dn">${DS[i]} ${parse(d).getDate()}</span><span class="dt">${t==='X'?'Libre':t==='R'?'Remo':t}</span><span class="st">${done?'Hecho':t==='X'?'·':d<TODAY?'Sin registro':'Pendiente'}</span></button>`;}
   return h+'</div>';}
 
-function exCard(r,i,d,w){const slot=RUT[r].s[i],bk=blockOf(w),id=chosen(r,i,bk),ex=EX[id],rx=presc(w,slot[1],ex),key=(d?'s':'r')+r+i,isOpen=open.has(key);
+function exCard(r,i,d,w){const slot=rut()[r].s[i],bk=blockOf(w),id=chosen(r,i,bk),ex=EX[id],rx=presc(w,slot[1],ex),key=(d?'s':'r')+r+i,isOpen=open.has(key);
   const e=d?entry(d,false):null,sets=(e&&e.ex[id])||[],nd=sets.slice(0,rx.sets).filter(x=>x&&x.ok).length,u=ex.u||'reps';
   let h=`<article class="ex${d&&nd>=rx.sets?' complete':''}"><button type="button" class="ex-h" data-act="tog" data-k="${key}" aria-expanded="${isOpen}"><span class="num">${i+1}</span><span class="ti"><b>${esc(ex.n)}</b><small>${esc(slot[0])} · ${esc(ex.m)}</small></span><span class="rx">${rx.sets} × ${rx.reps}${ex.u?' s':''}<small>${d?nd+' de '+rx.sets+' series · ':''}pausa ${rx.rest} s</small></span></button>`;
   if(!isOpen)return h+'</article>';
@@ -459,32 +477,33 @@ function viewHoy(){const t=typeOf(sel),w=weekOf(sel),e=state.log[sel],done=e&&e.
     <h3>1.000 remadas a ritmo constante, 30 a 35 minutos</h3>
     <ul class="cues"><li>Los primeros 3 minutos suaves para entrar en calor.</li><li>Orden del movimiento: empujan las piernas, luego se inclina el tronco, al final tiran los brazos. La vuelta es al revés.</li><li>Ritmo en el que puedas hablar con frases cortas. Espalda larga, sin encorvarte al final de la remada.</li></ul>
     <div class="form"><label>Remadas<input class="fi" type="number" inputmode="numeric" id="row-s" data-f="row-s" value="${esc(rw.s==null?1000:rw.s)}"></label><label>Minutos<input class="fi" type="number" inputmode="numeric" id="row-m" data-f="row-m" value="${esc(rw.m)}" placeholder="32"></label><label>Calorías quemadas (kcal)<input class="fi" type="number" inputmode="numeric" id="row-k" data-f="row-k" value="${esc(rw.k)}"></label><button type="button" class="btn pri" data-act="finish">${done?'Desmarcar sesión':'Marcar sesión hecha'}</button></div><p class="small muted">Anota las calorías que marca tu máquina al terminar. ${rowWeek(sel)}</p></section>`;}
-  const R=RUT[t],p=phaseOf(w),bk=blockOf(w),wb=wbOf(w);
+  const R=rut()[t],p=phaseOf(w),bk=blockOf(w),wb=wbOf(w);
   h+=`<section class="card"><div class="rowf sp"><div class="rowf"><span class="pill F">Fuerza ${t}</span>${done?'<span class="pill ok">Hecha</span>':''}</div><span class="muted small">Ciclo ${bk} · semana ${wb} de ${BW} · ${FASES[p].n}</span></div><h3>${R.foco}</h3><p class="small">${FASES[p].d}${w<=1?' Esta primera semana son solo 2 series por ejercicio.':''}${bk>1&&wb===1?' Empieza un ciclo nuevo: los ejercicios accesorios rotaron; piernas, pecho y espalda se mantienen para que sigas subiendo carga.':''}</p>
   <p class="small muted"><b>Calentamiento, 5 minutos:</b> 20 círculos de brazos, 15 sentadillas sin peso, 10 flexiones fáciles, 10 bisagras de cadera y 20 segundos de plancha. Toca cada ejercicio para ver la animación y registrar tus series.</p></section>`;
   for(let k=0;k<R.s.length;k++)h+=exCard(t,k,sel,w);
   return h+`<div class="rowf"><button type="button" class="btn pri" data-act="finish">${done?'Desmarcar sesión':'Marcar sesión hecha'}</button><span class="small muted">Al terminar, estira 5 minutos pecho, cadera y parte posterior de las piernas.</span></div>`;}
 
+function modeBox(){const sp=split();return `<section class="card"><h3>Modalidad de fuerza e hipertrofia</h3><div class="form"><label>Cómo se reparten los 3 días<select id="mode" data-f="mode"><option value="full"${sp?'':' selected'}>Cuerpo completo</option><option value="split"${sp?' selected':''}>Por grupo muscular</option></select></label></div><p class="small muted">${sp?'Cada día se concentra en un grupo: A pecho, hombros y tríceps; B espalda, bíceps y abdomen; C piernas, glúteos y abdomen. Son más ejercicios y series por grupo, con más carga y pausas más largas en los principales (4 series de 6 a 12 repeticiones). Cada grupo se entrena una vez por semana, así que no faltes a ninguna de las tres sesiones.':'Las rutinas A, B y C trabajan todo el cuerpo, de modo que cada músculo recibe estímulo tres veces por semana. Es la opción más segura si a veces te saltas un día.'} Tus registros se conservan al cambiar de modalidad.</p></section>`;}
 function equipBox(){const e=state.equip;return `<section class="card"><h3>Equipamiento disponible</h3><p class="small muted">La base usa peso corporal, bandas elásticas y rueda abdominal. Si no tienes bandas, desactívalas: esos ejercicios se reemplazan por variantes con mochila cargada, botellas de agua o solo peso corporal. Al activar mancuernas o banco, las rutinas cambian a las variantes con ese equipo.</p><div class="rowf"><label class="tog"><input type="checkbox" id="eq-band" data-f="eq-band" ${e.band!==false?'checked':''}>Bandas elásticas</label><label class="tog"><input type="checkbox" id="eq-db" data-f="eq-db" ${e.db?'checked':''}>Mancuernas</label><label class="tog"><input type="checkbox" id="eq-bench" data-f="eq-bench" ${e.bench?'checked':''} ${e.db?'':'disabled'}>Banco de ejercicios</label></div>${e.db?'':'<p class="small muted">El banco se usa junto con las mancuernas. Para comprar: un par ajustable que llegue a unos 20 kg por mano cubre todo el programa.</p>'}</section>`;}
 
 function viewPlan(){const w=weekOf(TODAY),s=state.sched,nF=s.filter(x=>'ABC'.includes(x)).length,nR=s.filter(x=>x==='R').length,nX=s.filter(x=>x==='X').length;
   const consec=s.some((x,i)=>'ABC'.includes(x)&&'ABC'.includes(s[(i+1)%7])),miss=['A','B','C'].filter(x=>!s.includes(x));
-  let h=`<section class="card"><h2>Tu semana</h2><div class="sched">${DN.map((n,i)=>`<label>${n}<select id="sch-${i}" data-f="sched" data-i="${i}">${Object.keys(TYPES).map(k=>`<option value="${k}"${s[i]===k?' selected':''}>${TYPES[k]}</option>`).join('')}</select></label>`).join('')}</div>
+  let h=`<section class="card"><h2>Tu semana</h2><div class="sched">${DN.map((n,i)=>`<label>${n}<select id="sch-${i}" data-f="sched" data-i="${i}">${Object.keys(TYPES).map(k=>`<option value="${k}"${s[i]===k?' selected':''}>${tname(k)}</option>`).join('')}</select></label>`).join('')}</div>
   <p class="small">${nF} días de fuerza · ${nR} de solo remo · ${nX} de descanso</p>
-  ${consec?'<p class="small warnbox">Tienes dos días de fuerza seguidos. Como cada rutina trabaja todo el cuerpo, deja al menos un día entre ellas.</p>':''}${nF<3?'<p class="small warnbox">El plan está pensado para un mínimo de 3 días de fuerza a la semana.</p>':''}${miss.length&&nF>=3?`<p class="small warnbox">Falta asignar la rutina ${miss.join(' y ')}.</p>`:''}</section>`+equipBox();
+  ${consec&&!split()?'<p class="small warnbox">Tienes dos días de fuerza seguidos. Como cada rutina trabaja todo el cuerpo, deja al menos un día entre ellas.</p>':''}${nF<3?'<p class="small warnbox">El plan está pensado para un mínimo de 3 días de fuerza a la semana.</p>':''}${miss.length&&nF>=3?`<p class="small warnbox">Falta asignar la rutina ${miss.join(' y ')}.</p>`:''}</section>`+modeBox()+equipBox();
   const bk=blockOf(w),wb=wbOf(w);
   h+=`<section class="card"><div class="rowf sp"><h2>Ciclo ${bk} · semana ${wb} de ${BW}</h2><div class="rowf"><button type="button" class="btn sm" data-act="wk" data-n="-1" aria-label="Retroceder una semana">−</button><span>Semana</span><button type="button" class="btn sm" data-act="wk" data-n="1" aria-label="Avanzar una semana">+</button><button type="button" class="btn sm" data-act="wk0">Volver al ciclo 1</button></div></div>
   <p class="small">El plan no termina: se repite en ciclos de ${BW} semanas y cada ciclo parte desde las cargas que alcanzaste en el anterior.</p>
   <div class="tw"><table><thead><tr><th>Semana del ciclo</th><th>Fase</th><th>Principales</th><th>Accesorios</th><th>Pausa</th></tr></thead><tbody>`;
   for(let k=1;k<=BW;k++){const kk=(bk-1)*BW+k,m=presc(kk,'main'),a=presc(kk,'acc');h+=`<tr class="${k===wb?'cur':''}"><td>${k}</td><td>${FASES[phaseOf(k)].n}</td><td>${m.sets} × ${m.reps}</td><td>${a.sets} × ${a.reps}</td><td>${m.rest} / ${a.rest} s</td></tr>`;}
-  h+=`</tbody></table></div><p class="small muted">Principales: piernas, pecho y espalda. Accesorios: glúteos, hombros, bíceps y tríceps. Pantorrillas y abdomen tienen su propio rango. Los días de remo se mantienen iguales: 1.000 remadas.</p></section>
+  h+=`</tbody></table></div><p class="small muted">${split()?'Principales: los primeros ejercicios de pecho, hombros, espalda y piernas. Accesorios: el resto.':'Principales: piernas, pecho y espalda. Accesorios: glúteos, hombros, bíceps y tríceps.'} Pantorrillas y abdomen tienen su propio rango. Los días de remo se mantienen iguales: 1.000 remadas.</p></section>
   <section class="card"><h3>Cómo sube la carga</h3><ol class="obs"><li><b>Primero repeticiones, después peso.</b> Cada ejercicio tiene un rango (por ejemplo 8-12). Mantén el peso hasta lograr el máximo del rango en todas las series; entonces sube 1 a 2 kg y vuelve al mínimo.</li><li><b>La página lo calcula por ti.</b> Al abrir un ejercicio en la sesión verás el objetivo de hoy según lo que registraste la última vez, y el peso sugerido aparece en gris en la casilla de kilos.</li><li><b>Sin mancuernas</b> la progresión es la misma, pero en vez de kilos cambias la dificultad: bajada en 3 segundos, pausa, banda más dura o mochila con peso.</li><li><b>Descarga cada ${BW} semanas.</b> Una semana liviana permite recuperar articulaciones y partir el ciclo siguiente con más fuerza.</li></ol></section>
   <section class="card"><h3>Cambio de ejercicios</h3><ol class="obs"><li><b>Sorprender al músculo no hace crecer más.</b> Lo que produce el aumento de masa es la sobrecarga progresiva: hacer un poco más de peso o repeticiones en los mismos ejercicios. Cambiarlos muy seguido impide medir si avanzas.</li><li><b>Variar con moderación sí ayuda</b> a trabajar el músculo desde otros ángulos, descansar las articulaciones y no aburrirse. Por eso en cada ciclo nuevo rotan solos los accesorios (glúteos, hombros, bíceps, tríceps, pantorrillas y abdomen).</li><li><b>Piernas, pecho y espalda se mantienen</b> entre ciclos, porque son los ejercicios donde más conviene seguir la carga en el tiempo.</li><li><b>Cambio por estancamiento.</b> Si pasas 3 sesiones sin avanzar en un ejercicio, la página te lo avisa y puedes cambiarlo con el botón "Cambiar variante". Ese cambio dura hasta el fin del ciclo.</li></ol></section>`;
   if(STANDALONE)h+=`<section class="card"><h3>Respaldo de tus registros</h3><p class="small muted">Tus series, mediciones y ajustes se guardan solo en este dispositivo. Descarga un respaldo cada cierto tiempo, o para pasar tus datos a otro teléfono.</p><div class="rowf"><button type="button" class="btn" data-act="bk-out">Descargar respaldo</button><label class="btn" style="display:inline-flex;align-items:center">Restaurar respaldo<input type="file" id="bk-in" accept="application/json,.json" data-f="bk-in" style="position:absolute;width:1px;height:1px;opacity:0"></label></div><p class="small" id="bk-msg" role="status"></p></section>`;
   return h;}
 
-function viewRut(){const w=weekOf(TODAY);let h=`<div class="rowf">${['A','B','C'].map(k=>`<button type="button" class="btn${rtab===k?' pri':''}" data-act="rt" data-r="${k}" aria-pressed="${rtab===k}">Rutina ${k}</button>`).join('')}</div><p><b>${RUT[rtab].foco}.</b> <span class="muted">Toca un ejercicio para ver la animación y las claves técnicas.</span></p>`;
-  for(let k=0;k<RUT[rtab].s.length;k++)h+=exCard(rtab,k,null,w);
+function viewRut(){const w=weekOf(TODAY);let h=`<div class="rowf">${['A','B','C'].map(k=>`<button type="button" class="btn${rtab===k?' pri':''}" data-act="rt" data-r="${k}" aria-pressed="${rtab===k}">Rutina ${k}</button>`).join('')}</div><p><b>${rut()[rtab].foco}.</b> <span class="muted">Toca un ejercicio para ver la animación y las claves técnicas.</span></p>`;
+  for(let k=0;k<rut()[rtab].s.length;k++)h+=exCard(rtab,k,null,w);
   return h+equipBox();}
 
 const METRICS=[['w','Peso','kg'],['fat','Grasa corporal','%'],['mus','Masa muscular','kg'],['visc','Grasa visceral',''],['whr','Cintura-cadera',''],['waist','Cintura','cm'],['bmr','Metabolismo basal','kcal']];
@@ -583,10 +602,10 @@ document.addEventListener('click',ev=>{const b=ev.target.closest('[data-act]');i
   if(a==='tog'){open.has(b.dataset.k)?open.delete(b.dataset.k):open.add(b.dataset.k);render();}
   else if(a==='day'){sel=b.dataset.d;if(view()!=='hoy')location.hash='hoy';render();}
   else if(a==='rt'){rtab=b.dataset.r;render();}
-  else if(a==='swap'){const r=b.dataset.r,i=+b.dataset.i,bk=+b.dataset.b,o=avail(RUT[r].s[i][2]),c=chosen(r,i,bk);state.pick[r+i]={b:bk,id:o[(o.indexOf(c)+1)%o.length]};persist();render();}
+  else if(a==='swap'){const r=b.dataset.r,i=+b.dataset.i,bk=+b.dataset.b,o=avail(rut()[r].s[i][2]),c=chosen(r,i,bk);state.pick[pk(r,i)]={b:bk,id:o[(o.indexOf(c)+1)%o.length]};persist();render();}
   else if(a==='done'){const e=entry(sel,true),id=b.dataset.ex,j=+b.dataset.j,arr=e.ex[id]||(e.ex[id]=[]);while(arr.length<=j)arr.push({});
     arr[j].ok=!arr[j].ok;if(arr[j].ok){const ri=$('#r-'+id+'-'+j);if(ri&&!ri.value&&ri.placeholder&&/^\d+$/.test(ri.placeholder))arr[j].r=ri.placeholder;const ki=$('#kg-'+id+'-'+j);if(ki&&!ki.value&&ki.placeholder)arr[j].kg=ki.placeholder;startTimer(+b.dataset.rest);}
-    const t=e.type,w=weekOf(sel);if(RUT[t]){e.done=RUT[t].s.every((s,i)=>{const x=chosen(t,i,blockOf(w)),n=presc(w,s[1],EX[x]).sets,ss=e.ex[x]||[];return ss.slice(0,n).filter(q=>q&&q.ok).length>=n;});}
+    const t=e.type,w=weekOf(sel);if(rut()[t]){e.done=rut()[t].s.every((s,i)=>{const x=chosen(t,i,blockOf(w)),n=presc(w,s[1],EX[x]).sets,ss=e.ex[x]||[];return ss.slice(0,n).filter(q=>q&&q.ok).length>=n;});}
     persist();render();}
   else if(a==='finish'){const e=entry(sel,true);e.done=!e.done;if(e.type==='R'&&!e.row)e.row={s:1000};persist();render();}
   else if(a==='wk'){state.start=addDays(state.start,-7*(+b.dataset.n));persist();render();}
@@ -607,6 +626,7 @@ document.addEventListener('change',ev=>{const el=ev.target,f=el.dataset&&el.data
   if(f==='prof'){render();}
   else if(f==='sched'){state.sched[+el.dataset.i]=el.value;persist();render();}
   else if(f==='eq-db'){state.equip.db=el.checked;if(!el.checked)state.equip.bench=false;persist();render();}
+  else if(f==='mode'){state.mode=el.value==='split'?'split':'full';persist();render();}
   else if(f==='eq-band'){state.equip.band=el.checked;persist();render();}
   else if(f==='eq-bench'){state.equip.bench=el.checked;persist();render();}
   else if(f==='bk-in'){const file=el.files&&el.files[0];if(!file)return;const rd=new FileReader();rd.onload=()=>{try{const r=JSON.parse(rd.result);if(!r||r.v!==1||!Array.isArray(r.sched))throw 0;state=merge(r);persist();render();$('#bk-msg').textContent='Respaldo restaurado.';}catch(e){$('#bk-msg').textContent='Ese archivo no es un respaldo válido de este plan.';}};rd.readAsText(file);}
