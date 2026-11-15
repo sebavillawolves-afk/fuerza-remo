@@ -18,7 +18,7 @@
 :root{
   /* Ficha de entrenamiento: neutros fríos verdosos, naranja de señal para fuerza, azul agua para remo */
   --bg:#eef1f0; --surface:#ffffff; --ink:#15201d; --muted:#5a6864; --line:#d3dbd8; --soft:#e6ebe9;
-  --accent:#d94a0b; --accent-ink:#ffffff; --row:#1b6a86; --ok:#23794b; --warn:#9a6508;
+  --accent:#d94a0b; --accent-ink:#ffffff; --row:#1b6a86; --ok:#23794b; --warn:#9a6508; --bad:#b3261e;
   --fig:#15201d; --fig2:#a3b0ac; --prop:#cbd4d1;
   --m1:#d94a0b; --m2:#1b6a86; --m3:#23794b; --m4:#8a3fa0; --m5:#b0306a; --m6:#5a6b00; --m7:#3b55c4;
   padding-top:env(safe-area-inset-top,0px);padding-left:env(safe-area-inset-left,0px);padding-right:env(safe-area-inset-right,0px);
@@ -26,11 +26,11 @@
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --bg:#0f1514; --surface:#18201e; --ink:#e7eeeb; --muted:#93a29d; --line:#2a3532; --soft:#202a27;
-  --accent:#ff7a3d; --accent-ink:#1b0c03; --row:#62b9d4; --ok:#5ec98f; --warn:#e2b257;
+  --accent:#ff7a3d; --accent-ink:#1b0c03; --row:#62b9d4; --ok:#5ec98f; --warn:#e2b257; --bad:#f2a19b;
   --fig:#e7eeeb; --fig2:#56635f; --prop:#35423e; --m1:#ff7a3d; --m2:#62b9d4; --m3:#5ec98f; --m4:#c58be0; --m5:#f07fb0; --m6:#c2cf5a; --m7:#8fa2ff; color-scheme:dark;}}
 :root[data-theme="dark"]{
   --bg:#0f1514; --surface:#18201e; --ink:#e7eeeb; --muted:#93a29d; --line:#2a3532; --soft:#202a27;
-  --accent:#ff7a3d; --accent-ink:#1b0c03; --row:#62b9d4; --ok:#5ec98f; --warn:#e2b257;
+  --accent:#ff7a3d; --accent-ink:#1b0c03; --row:#62b9d4; --ok:#5ec98f; --warn:#e2b257; --bad:#f2a19b;
   --fig:#e7eeeb; --fig2:#56635f; --prop:#35423e; --m1:#ff7a3d; --m2:#62b9d4; --m3:#5ec98f; --m4:#c58be0; --m5:#f07fb0; --m6:#c2cf5a; --m7:#8fa2ff; color-scheme:dark;}
 *{box-sizing:border-box}
 html,body{margin:0}
@@ -68,6 +68,13 @@ main{display:flex;flex-direction:column;gap:18px;padding-top:20px}
 .btn,.chk,.tog{min-height:44px}
 .btn.sm{min-height:38px;min-width:38px}
 .pill{display:inline-block;font-family:var(--display);font-weight:600;font-size:15px;text-transform:uppercase;letter-spacing:.04em;border-radius:99px;padding:2px 10px;border:1px solid currentColor}
+.pill.warn{color:var(--warn)} .pill.bad{color:var(--bad)}
+.refs{display:flex;flex-direction:column;gap:14px}
+.ref{display:flex;flex-direction:column;gap:6px;border-top:1px solid var(--line);padding-top:12px}
+.bands{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.bd{border-radius:8px;padding:6px 8px;font-size:14px;font-weight:600;border:1px solid var(--line);border-top:4px solid;font-variant-numeric:tabular-nums}
+.bd i{display:block;font-style:normal;font-weight:400;font-size:12px;color:var(--muted)}
+.bd.ok{border-top-color:var(--ok)} .bd.warn{border-top-color:var(--warn)} .bd.bad{border-top-color:var(--bad)}
 .pill.F{color:var(--accent)} .pill.R{color:var(--row)} .pill.X{color:var(--muted)} .pill.ok{color:var(--ok)}
 /* semana */
 .week{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
@@ -424,6 +431,8 @@ function exCard(r,i,d,w){const slot=RUT[r].s[i],bk=blockOf(w),id=chosen(r,i,bk),
     h+='</div>';}
   return h+'</div></article>';}
 
+function rowWeek(d){const m=monday(d);let n=0,k=0,any=false;for(let i=0;i<7;i++){const e=state.log[addDays(m,i)];if(e&&e.type==='R'&&e.done){n++;if(e.row&&+e.row.k>0){k+=+e.row.k;any=true;}}}
+  return n?`Remo esta semana: ${n} ${n===1?'sesión':'sesiones'}${any?' · '+Math.round(k)+' kcal':''}.`:'';}
 function viewHoy(){const t=typeOf(sel),w=weekOf(sel),e=state.log[sel],done=e&&e.done,i=wd(sel);
   let h=`<div class="rowf sp"><div class="rowf"><button type="button" class="btn sm" data-act="day" data-d="${addDays(sel,-1)}" aria-label="Día anterior">‹</button><h2>${DN[i]} ${fdate(sel)}</h2><button type="button" class="btn sm" data-act="day" data-d="${addDays(sel,1)}" aria-label="Día siguiente">›</button></div>${sel!==TODAY?`<button type="button" class="btn sm" data-act="day" data-d="${TODAY}">Ir a hoy</button>`:''}</div>`+weekStrip();
   if(t==='X')return h+`<section class="card"><div class="rowf"><span class="pill X">Descanso</span></div><p>Hoy no se entrena. El músculo crece en el descanso: duerme 7 a 8 horas y, si quieres moverte, camina 30 minutos a ritmo cómodo.</p></section>`;
@@ -431,7 +440,7 @@ function viewHoy(){const t=typeOf(sel),w=weekOf(sel),e=state.log[sel],done=e&&e.
     return h+`<section class="card"><div class="rowf sp"><div class="rowf"><span class="pill R">Solo remo</span>${done?'<span class="pill ok">Hecho</span>':''}</div></div>
     <h3>1.000 remadas a ritmo constante, 30 a 35 minutos</h3>
     <ul class="cues"><li>Los primeros 3 minutos suaves para entrar en calor.</li><li>Orden del movimiento: empujan las piernas, luego se inclina el tronco, al final tiran los brazos. La vuelta es al revés.</li><li>Ritmo en el que puedas hablar con frases cortas. Espalda larga, sin encorvarte al final de la remada.</li></ul>
-    <div class="form"><label>Remadas<input class="fi" type="number" inputmode="numeric" id="row-s" data-f="row-s" value="${esc(rw.s==null?1000:rw.s)}"></label><label>Minutos<input class="fi" type="number" inputmode="numeric" id="row-m" data-f="row-m" value="${esc(rw.m)}" placeholder="32"></label><button type="button" class="btn pri" data-act="finish">${done?'Desmarcar sesión':'Marcar sesión hecha'}</button></div></section>`;}
+    <div class="form"><label>Remadas<input class="fi" type="number" inputmode="numeric" id="row-s" data-f="row-s" value="${esc(rw.s==null?1000:rw.s)}"></label><label>Minutos<input class="fi" type="number" inputmode="numeric" id="row-m" data-f="row-m" value="${esc(rw.m)}" placeholder="32"></label><label>Calorías quemadas (kcal)<input class="fi" type="number" inputmode="numeric" id="row-k" data-f="row-k" value="${esc(rw.k)}"></label><button type="button" class="btn pri" data-act="finish">${done?'Desmarcar sesión':'Marcar sesión hecha'}</button></div><p class="small muted">Anota las calorías que marca tu máquina al terminar. ${rowWeek(sel)}</p></section>`;}
   const R=RUT[t],p=phaseOf(w),bk=blockOf(w),wb=wbOf(w);
   h+=`<section class="card"><div class="rowf sp"><div class="rowf"><span class="pill F">Fuerza ${t}</span>${done?'<span class="pill ok">Hecha</span>':''}</div><span class="muted small">Ciclo ${bk} · semana ${wb} de ${BW} · ${FASES[p].n}</span></div><h3>${R.foco}</h3><p class="small">${FASES[p].d}${w<=1?' Esta primera semana son solo 2 series por ejercicio.':''}${bk>1&&wb===1?' Empieza un ciclo nuevo: los ejercicios accesorios rotaron; piernas, pecho y espalda se mantienen para que sigas subiendo carga.':''}</p>
   <p class="small muted"><b>Calentamiento, 5 minutos:</b> 20 círculos de brazos, 15 sentadillas sin peso, 10 flexiones fáciles, 10 bisagras de cadera y 20 segundos de plancha. Toca cada ejercicio para ver la animación y registrar tus series.</p></section>`;
@@ -480,15 +489,35 @@ function multiChart(rows){
       vis.map(x=>`<polyline points="${x.q.map(p=>n1(X(p.d))+','+n1(Y(p.v))).join(' ')}" fill="none" stroke="var(--m${x.i+1})" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="${DASH[x.i]}"/>`+x.q.map((p,k)=>`<circle cx="${n1(X(p.d))}" cy="${n1(Y(p.v))}" r="${k===x.q.length-1?4.5:2.6}" fill="var(--m${x.i+1})"><title>${x.m[1]} · ${fdate(p.d)}: ${num(x.p[k].v)}${x.m[2]?' '+x.m[2]:''}</title></circle>`).join('')).join('')+'</svg></div>';}
   return `<section class="card"><h3>Evolución de cada criterio</h3><p class="small muted">Cada línea muestra cuánto cambió ese criterio, en porcentaje, desde tu primera medición. Así se pueden comparar en un mismo gráfico aunque tengan unidades distintas. Toca un criterio para ocultarlo o mostrarlo.</p>${svg}<div class="legend">${leg}</div></section>`;}
 
-function viewBody(){const rows=state.body.slice().sort((a,b)=>a.d<b.d?-1:1),f=rows[0],l=rows[rows.length-1];
+// Rangos de referencia para adultos. Fuentes: OMS (IMC, cintura, cintura-cadera), Gallagher et al. 2000 (grasa corporal por sexo y edad), escalas de fabricantes de balanzas (grasa visceral).
+function refs(pf){const s=pf.sex,a=+pf.age||0,g=a>=60?2:a>=40?1:0,o=[];
+  o.push({k:'bmi',n:'IMC',b:[18.5,25,30],t:['18,5 a 24,9','25 a 29,9','30 o más'],e:'Relaciona el peso con la estatura. Es la referencia general de la OMS, pero no distingue músculo de grasa: una persona musculosa puede marcar alto sin tener exceso de grasa. Bajo 18,5 se considera bajo peso.',need:pf.h?'':'Anota tu estatura para calcularlo.'});
+  if(s&&a){const F=(s==='h'?[[8,20,25],[11,22,28],[13,25,30]]:[[21,33,39],[23,34,40],[24,36,42]])[g];
+    o.push({k:'fat',n:'Grasa corporal',u:' %',b:F,t:[`${F[0]} a ${num(F[1]-.1)} %`,`${F[1]} a ${num(F[2]-.1)} %`,`${F[2]} % o más`],e:`Proporción del peso que es grasa. El rango depende del sexo y la edad; este corresponde a ${s==='h'?'hombres':'mujeres'} de ${['20 a 39','40 a 59','60 a 79'][g]} años. Bajo ${F[0]} % también es un riesgo: el cuerpo necesita una reserva mínima de grasa.`});}
+  else o.push({k:'fat',n:'Grasa corporal',u:' %',e:'Proporción del peso que es grasa. El rango saludable depende del sexo y la edad.',need:'Completa tu sexo y edad en "Tus datos" para ver tu rango.'});
+  if(s){const W=s==='h'?[null,94,102]:[null,80,88],R=s==='h'?[null,.9,1]:[null,.8,.85];
+    o.push({k:'waist',n:'Cintura',u:' cm',b:W,t:[`Menos de ${W[1]} cm`,`${W[1]} a ${num(W[2]-.1)} cm`,`${W[2]} cm o más`],e:'Indica cuánta grasa se acumula en el abdomen, que es la más asociada a diabetes y enfermedades del corazón. Se mide con huincha a la altura del ombligo, sin apretar.'});
+    o.push({k:'whr',n:'Relación cintura-cadera',u:'',b:R,t:[`Menos de ${num(R[1])}`,`${num(R[1])} a ${num(n1(R[2]*100-1)/100)}`,`${num(R[2])} o más`],e:'Cintura dividida por cadera. Mientras más alta, más grasa se concentra en el abdomen en comparación con las caderas, lo que aumenta el riesgo cardiovascular.'});}
+  else o.push({k:'waist',n:'Cintura y relación cintura-cadera',u:'',e:'Indican cuánta grasa se acumula en el abdomen. Los límites son distintos para hombres y mujeres.',need:'Completa tu sexo en "Tus datos" para ver tus rangos.'});
+  o.push({k:'visc',n:'Grasa visceral',u:'',b:[null,10,15],t:['1 a 9','10 a 14','15 o más'],e:'Nivel estimado de la grasa que rodea los órganos del abdomen. La escala depende de la marca de la balanza: la de arriba es la más usada (niveles 1 a 30); algunas marcas, como Tanita, usan otra escala y consideran saludable de 1 a 12. Revisa el manual de la tuya.'});
+  o.push({k:'mus',n:'Masa muscular y peso sin grasa',u:' kg',e:'No tienen rangos de riesgo universales: dependen de la estatura, el sexo y la contextura. Lo que importa es tu propia tendencia: mantenerlos o subirlos mientras baja la grasa.'});
+  o.push({k:'bmr',n:'Metabolismo basal',u:' kcal',e:'Calorías que tu cuerpo gasta en reposo en un día. No hay un valor ideal: sube con la masa muscular y sirve de piso para planificar la alimentación. Comer por debajo de él de forma sostenida dificulta la recuperación.'});
+  return o;}
+function refCard(rows,pf){const last=k=>{for(let i=rows.length-1;i>=0;i--)if(rows[i][k]!=null&&rows[i][k]!=='')return +rows[i][k];return null;};
+  return `<section class="card"><h3>Rangos de referencia</h3><p class="small muted">Valores para adultos. Saludable: sin riesgo adicional. Riesgo: conviene bajarlo. Alto: riesgo claramente mayor; vale la pena consultarlo con un médico.</p><div class="refs">${refs(pf).map(r=>{const v=last(r.k);let st='';
+    if(r.b&&v!=null){const c=r.b[0]!=null&&v<r.b[0]?['warn','Bajo']:v<r.b[1]?['ok','Saludable']:v<r.b[2]?['warn','Riesgo']:['bad','Alto'];st=`<span class="pill ${c[0]}">${c[1]}</span>`;}
+    return `<div class="ref"><div class="rowf sp"><b>${r.n}</b><span class="rowf">${v!=null?`<span class="small">Tu último valor: <b>${num(v)}${r.u||""}</b></span>`:''}${st}</span></div>${r.t?`<div class="bands"><span class="bd ok"><i>Saludable</i>${r.t[0]}</span><span class="bd warn"><i>Riesgo</i>${r.t[1]}</span><span class="bd bad"><i>Alto</i>${r.t[2]}</span></div>`:''}${r.need?`<p class="small warnbox">${r.need}</p>`:''}<p class="small muted">${r.e}</p></div>`;}).join('')}</div><p class="small muted">Fuentes: Organización Mundial de la Salud (IMC, cintura y cintura-cadera), Gallagher y colaboradores, 2000 (grasa corporal) y escalas de fabricantes de balanzas (grasa visceral). Son referencias generales, no un diagnóstico.</p></section>`;}
+function viewBody(){const pf=state.prof||{},hm=+pf.h>0?+pf.h/100:0;
+  const rows=state.body.slice().sort((a,b)=>a.d<b.d?-1:1).map(r=>{const x=Object.assign({},r);if(hm&&r.w)x.bmi=n1(r.w/(hm*hm));if(r.w&&r.fat){x.fkg=n1(r.w*r.fat/100);x.lean=n1(r.w-r.w*r.fat/100);}if(r.w&&r.mus)x.mp=n1(r.mus/r.w*100);return x;}),f=rows[0],l=rows[rows.length-1];
   const tile=(k,lab,unit,goodDown)=>{if(!l||l[k]==null||l[k]==='')return `<div class="tile"><div class="l">${lab}</div><div class="v">–</div></div>`;
     const dv=f&&f!==l&&f[k]!=null&&f[k]!==''?n1(l[k]-f[k]):null;
     return `<div class="tile"><div class="l">${lab}</div><div class="v">${num(l[k])}<span style="font-size:18px"> ${unit}</span></div>${dv===null?'<div class="d muted">Medición inicial</div>':`<div class="d ${dv===0?'muted':(dv<0)===goodDown?'up':'down'}">${dv>0?'+':''}${num(dv)} ${unit} desde ${fdate(f.d)}</div>`}</div>`;};
-  let h=`<h2>Mediciones corporales</h2><div class="tiles">${tile('w','Peso','kg',true)}${tile('fat','Grasa corporal','%',true)}${tile('mus','Masa muscular','kg',false)}${tile('visc','Grasa visceral','',true)}</div>`;
-  h+=multiChart(rows);
+  let h=`<h2>Mediciones corporales</h2><section class="card"><h3>Tus datos</h3><div class="form"><label>Estatura (cm)<input class="fi" type="number" inputmode="decimal" min="0" step="0.5" id="pf-h" data-f="prof" data-k="h" value="${esc(pf.h)}"></label><label>Edad (años)<input class="fi" type="number" inputmode="numeric" min="0" id="pf-age" data-f="prof" data-k="age" value="${esc(pf.age)}"></label><label>Sexo<select id="pf-sex" data-f="prof" data-k="sex"><option value=""></option><option value="h"${pf.sex==='h'?' selected':''}>Hombre</option><option value="m"${pf.sex==='m'?' selected':''}>Mujer</option></select></label></div><p class="small muted">Con la estatura se calcula el IMC. El peso sin grasa, los kilos de grasa y el porcentaje de músculo se calculan solos a partir de cada medición.</p></section>
+  <div class="tiles">${tile('w','Peso','kg',true)}${tile('bmi','IMC','',true)}${tile('fat','Grasa corporal','%',true)}${tile('fkg','Grasa en kilos','kg',true)}${tile('mus','Masa muscular','kg',false)}${tile('mp','Porcentaje de músculo','%',false)}${tile('lean','Peso sin grasa','kg',false)}${tile('visc','Grasa visceral','',true)}${tile('whr','Relación cintura-cadera','',true)}${tile('bmr','Metabolismo basal','kcal',false)}</div>`;
+  h+=multiChart(rows)+refCard(rows,pf);
   h+=`<section class="card"><h3>Agregar medición</h3><form id="bform" class="form"><label>Fecha<input class="fi" type="date" id="b-d" value="${TODAY}" required></label><label>Peso (kg)<input class="fi" type="number" step="0.1" id="b-w" required></label><label>Grasa (%)<input class="fi" type="number" step="0.1" id="b-fat"></label><label>Músculo (kg)<input class="fi" type="number" step="0.1" id="b-mus"></label><label>Grasa visceral<input class="fi" type="number" step="0.5" id="b-visc"></label><label>Cintura-cadera<input class="fi" type="number" step="0.01" id="b-whr" placeholder="0,95"></label><label>Cintura (cm)<input class="fi" type="number" step="0.5" id="b-waist"></label><label>Metab. basal (kcal)<input class="fi" type="number" step="1" id="b-bmr"></label><button class="btn pri" type="submit">Guardar medición</button></form>
   <p class="small muted">Mídete cada 2 semanas, el mismo día, al despertar, en ayunas y después de ir al baño. La balanza de bioimpedancia varía con la hidratación: importa la tendencia, no una medición aislada.</p></section>`;
-  if(rows.length)h+=`<section class="card"><h3>Historial</h3><div class="tw"><table><thead><tr><th>Fecha</th><th>Peso</th><th>Grasa</th><th>Kg de grasa</th><th>Músculo</th><th>Visceral</th><th>Cintura-cadera</th><th>Cintura</th><th>Basal</th><th></th></tr></thead><tbody>${rows.slice().reverse().map(r=>`<tr><td>${fdate(r.d)} ${parse(r.d).getFullYear()}</td><td>${num(r.w)} kg</td><td>${r.fat?num(r.fat)+' %':'–'}</td><td>${r.fat?num(n1(r.w*r.fat/100))+' kg':'–'}</td><td>${r.mus?num(r.mus)+' kg':'–'}</td><td>${r.visc?num(r.visc):'–'}</td><td>${r.whr?num(r.whr):'–'}</td><td>${r.waist?num(r.waist)+' cm':'–'}</td><td>${r.bmr?num(r.bmr)+' kcal':'–'}</td><td><button type="button" class="btn sm" data-act="bdel" data-d="${r.d}" aria-label="Eliminar medición del ${fdate(r.d)}">Eliminar</button></td></tr>`).join('')}</tbody></table></div></section>`;
+  if(rows.length)h+=`<section class="card"><h3>Historial</h3><div class="tw"><table><thead><tr><th>Fecha</th><th>Peso</th><th>IMC</th><th>Grasa</th><th>Kg de grasa</th><th>Sin grasa</th><th>Músculo</th><th>Visceral</th><th>Cintura-cadera</th><th>Cintura</th><th>Basal</th><th></th></tr></thead><tbody>${rows.slice().reverse().map(r=>`<tr><td>${fdate(r.d)} ${parse(r.d).getFullYear()}</td><td>${num(r.w)} kg</td><td>${r.bmi?num(r.bmi):'–'}</td><td>${r.fat?num(r.fat)+' %':'–'}</td><td>${r.fkg?num(r.fkg)+' kg':'–'}</td><td>${r.lean?num(r.lean)+' kg':'–'}</td><td>${r.mus?num(r.mus)+' kg':'–'}</td><td>${r.visc?num(r.visc):'–'}</td><td>${r.whr?num(r.whr):'–'}</td><td>${r.waist?num(r.waist)+' cm':'–'}</td><td>${r.bmr?num(r.bmr)+' kcal':'–'}</td><td><button type="button" class="btn sm" data-act="bdel" data-d="${r.d}" aria-label="Eliminar medición del ${fdate(r.d)}">Eliminar</button></td></tr>`).join('')}</tbody></table></div></section>`;
   h+=`<section class="card"><h3>Qué esperar en los primeros 3 meses</h3><ol class="obs"><li><b>Recomposición, no solo balanza.</b> Al ganar músculo y perder grasa a la vez, el peso puede moverse poco. Mira el porcentaje de grasa, la masa muscular y la cintura.</li><li><b>Grasa corporal:</b> bajar entre 2 y 3 puntos porcentuales en este período es una meta razonable.</li><li><b>Masa muscular:</b> mantenerla mientras bajas grasa ya es un buen resultado; al retomar la fuerza es habitual subir algo.</li><li><b>Grasa visceral y cintura:</b> son los indicadores de salud que más conviene bajar; en hombres, la OMS usa 0,90 como referencia para la relación cintura-cadera.</li></ol><p class="small muted">Metas orientativas. Mide tu cintura con huincha a la altura del ombligo cada 2 semanas.</p></section>`;
   return h;}
 
@@ -553,10 +582,12 @@ document.addEventListener('click',ev=>{const b=ev.target.closest('[data-act]');i
 document.addEventListener('input',ev=>{const el=ev.target,f=el.dataset&&el.dataset.f;if(!f)return;
   if(f==='kg'||f==='r'){const e=entry(sel,true),id=el.dataset.ex,j=+el.dataset.j,arr=e.ex[id]||(e.ex[id]=[]);while(arr.length<=j)arr.push({});arr[j][f]=el.value;persist();}
   else if(f==='food'){state.food=state.food||{};state.food[el.dataset.k]=el.value;persist();}
-  else if(f==='row-s'||f==='row-m'){const e=entry(sel,true);e.row=e.row||{s:1000};e.row[f==='row-s'?'s':'m']=el.value;persist();}
+  else if(f==='row-s'||f==='row-m'||f==='row-k'){const e=entry(sel,true);e.row=e.row||{s:1000};e.row[f.slice(4)]=el.value;persist();}
+  else if(f==='prof'){state.prof=state.prof||{};state.prof[el.dataset.k]=el.value;persist();}
 });
 document.addEventListener('change',ev=>{const el=ev.target,f=el.dataset&&el.dataset.f;if(!f)return;
-  if(f==='sched'){state.sched[+el.dataset.i]=el.value;persist();render();}
+  if(f==='prof'){render();}
+  else if(f==='sched'){state.sched[+el.dataset.i]=el.value;persist();render();}
   else if(f==='eq-db'){state.equip.db=el.checked;if(!el.checked)state.equip.bench=false;persist();render();}
   else if(f==='eq-bench'){state.equip.bench=el.checked;persist();render();}
   else if(f==='bk-in'){const file=el.files&&el.files[0];if(!file)return;const rd=new FileReader();rd.onload=()=>{try{const r=JSON.parse(rd.result);if(!r||r.v!==1||!Array.isArray(r.sched))throw 0;state=merge(r);persist();render();$('#bk-msg').textContent='Respaldo restaurado.';}catch(e){$('#bk-msg').textContent='Ese archivo no es un respaldo válido de este plan.';}};rd.readAsText(file);}

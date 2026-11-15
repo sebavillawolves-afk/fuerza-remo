@@ -1,6 +1,6 @@
 // Guarda la app en el dispositivo para usarla sin internet.
 // Al publicar cambios, sube el número de versión: así los teléfonos descargan la versión nueva.
-const VERSION = 'fuerza-remo-v2';
+const VERSION = 'fuerza-remo-v4';
 const FILES = ['./', 'index.html', 'manifest.webmanifest', 'icons/icon-180.png', 'icons/icon-192.png', 'icons/icon-512.png'];
 
 self.addEventListener('install', e => {
