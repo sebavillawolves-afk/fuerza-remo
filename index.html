@@ -215,6 +215,8 @@ calf:{toe:[108,127],props:[['box',94,128,32,7]],k:[{h:[98,77],t:-90,hd:[[102,80]
 calf1:{toe:[108,127],props:[['box',94,128,32,7]],k:[{h:[98,77],t:-90,hd:[[102,80]],ft:[[98,130],[84,112]]},{h:[98,66],hd:[[102,69]],ft:[[98,119],[84,101]]}]},
 wheel:{wheel:1,foot:[-8,3],k:[{h:[66,104],t:-25,hd:[[104,126]],ft:[[36,131]]},{h:[84,116],t:-5,hd:[[156,126]]}]},
 plank:{foot:[-3,4],still:1,k:[{h:[93,120.8],t:-11,hd:[[146,133]],ft:[[40,131]]},{h:[93,121.6]}]},
+pike:{foot:[-3,4],k:[{h:[86,82],t:40,hd:[[128,134]],ft:[[62,131]]},{h:[88,86],t:46}]},
+proneW:{foot:[8,1],k:[{h:[110,127],t:180,hd:[[50,130]],ft:[[163,130]]},{t:190,hd:[[66,110]]}]},
 legraise:{k:[{h:[92,128],t:180,hd:[[94,132]],ft:[[144,124]]},{ft:[[130,90]]},{ft:[[96,76]]}]}
 };
 /* normaliza: cada pose hereda de la anterior lo que no declara */
@@ -266,6 +268,7 @@ function figure(key,ov,u){
   if(d.db==='one')o+=dbs(hands[0]);
   if(d.db==='front')o+=dbf(hands[0])+dbf(hands[1]);
   if(d.db==='goblet'){const m=mixP(hands[0],hands[1],.5);o+=`<rect class="db" x="${n1(m[0]-4.5)}" y="${n1(m[1]-7)}" width="9" height="14" rx="2"/>`;}
+  if(d.db==='pack')o+=`<rect class="db" x="${n1(hands[0][0]-8)}" y="${n1(hands[0][1]-3)}" width="16" height="19" rx="4"/>`;
   if(d.wheel)o+=`<circle class="whl" cx="${n1(hands[0][0])}" cy="${n1(hands[0][1])}" r="8"/>`;
   if(d.note)o+=`<text class="nt" x="100" y="146" text-anchor="middle">${d.note}</text>`;
   return o;
@@ -317,6 +320,16 @@ dbHammer:{n:'Curl martillo',m:'Bíceps, braquial, antebrazo',a:['curl'],w:1,c:['
 bandOH:{n:'Extensión de tríceps con banda sobre la cabeza',m:'Tríceps',a:['oh',{db:null,band:'foot'}],c:['Pisa un extremo de la banda con el pie de atrás y toma el otro por detrás de la cabeza.','Estira los brazos hacia arriba manteniendo los codos apuntando al techo.','Baja lento por detrás de la cabeza.'],e:'Abrir los codos hacia los lados.'},
 dbOH:{n:'Extensión de tríceps sobre la cabeza',m:'Tríceps',a:['oh'],w:1,c:['Una mancuerna sujeta con ambas manos sobre la cabeza.','Baja por detrás de la cabeza doblando solo los codos.','Estira sin bloquear de golpe.'],e:'Arquear la espalda; aprieta el abdomen.'},
 skull:{n:'Press francés en banco',m:'Tríceps',a:['skull'],w:1,c:['Acostado, mancuernas arriba con las palmas enfrentadas.','Dobla solo los codos y baja las mancuernas a los lados de la cabeza.','La parte alta de los brazos no se mueve.'],e:'Abrir los codos o mover los hombros.'},
+packGm:{n:'Buenos días con mochila',m:'Isquiotibiales, glúteos, zona lumbar',a:['gm',{band:null,db:'pack'}],w:1,c:['Abraza una mochila cargada (libros o botellas) contra el pecho. Parte sin peso, con las manos en el pecho, hasta dominar el gesto.','Lleva la cadera hacia atrás con las rodillas apenas flexionadas y la espalda recta.','Baja hasta sentir tensión detrás de los muslos y vuelve apretando los glúteos.'],e:'Redondear la espalda al bajar.'},
+packRow:{n:'Remo a una mano con mochila',m:'Dorsales, espalda media, bíceps',a:['row1',{db:'pack',props:[['box',104,106,30,29]]}],w:1,c:['Apoya la mano libre en una silla firme, espalda plana y paralela al suelo.','Toma la mochila cargada por el asa y llévala hacia la cadera, codo pegado al cuerpo.','Baja estirando todo el brazo. Repeticiones por lado.'],e:'Girar el tronco para subir el peso.'},
+packBent:{n:'Remo inclinado con mochila',m:'Dorsales, espalda media',a:['bent',{db:'pack'}],w:1,c:['Toma la mochila cargada con ambas manos, inclina el tronco unos 45° con la espalda recta.','Tira hacia la cintura con los codos pegados al cuerpo.','Junta las escápulas arriba y baja controlando.'],e:'Enderezarse en cada repetición.'},
+packBentW:{n:'Remo inclinado con mochila, codos abiertos',m:'Espalda alta, deltoides posterior',a:['bent',{db:'pack'}],w:1,c:['Misma posición que el remo inclinado, tomando la mochila por los costados.','Tira hacia el pecho con los codos abiertos a la altura de los hombros.','Junta las escápulas 1 segundo. Usa menos peso que en el remo a la cintura.'],e:'Encoger los hombros hacia las orejas.'},
+pike:{n:'Flexiones en pica',m:'Deltoides, tríceps',a:['pike'],c:['Manos y pies en el suelo, cadera bien arriba formando una V invertida.','Dobla los codos y baja la cabeza hacia el suelo, entre las manos y un poco por delante de ellas.','Empuja hasta estirar los brazos. Acerca los pies a las manos para hacerlo más difícil.'],e:'Bajar la cadera y convertirlo en una flexión normal.'},
+bottleLat:{n:'Elevaciones laterales con botellas',m:'Deltoides lateral',a:['lat'],c:['Una botella llena de 1,5 a 2 litros en cada mano, brazos a los costados.','Sube los brazos hacia los lados hasta la altura de los hombros, codos levemente flexionados.','Baja en 3 segundos. Cuando sobre, pasa a bidones de 5 litros.'],e:'Balancear el cuerpo para subir el peso.'},
+proneW:{n:'W tumbado boca abajo',m:'Deltoides posterior, espalda alta',a:['proneW'],c:['Boca abajo, brazos estirados al frente, mirada al suelo.','Despega un poco el pecho y lleva los codos hacia atrás hasta formar una W con los brazos.','Junta las escápulas 2 segundos y vuelve a estirar sin apoyar las manos.'],e:'Levantar la cabeza y arquear el cuello.'},
+packCurl:{n:'Curl de bíceps con mochila',m:'Bíceps',a:['curl',{db:'pack'}],w:1,c:['De pie, toma la mochila cargada por el asa con ambas manos, palmas hacia arriba.','Flexiona los codos sin moverlos del costado del cuerpo.','Aprieta arriba y baja en 2-3 segundos.'],e:'Adelantar los codos o balancear el tronco.'},
+bottleHammer:{n:'Curl martillo con bidones',m:'Bíceps, braquial, antebrazo',a:['curl'],c:['Un bidón de agua de 5 litros (o una botella llena) en cada mano, palmas mirándose entre sí.','Sube con los pulgares hacia arriba, codos pegados al tronco.','Baja en 3 segundos. Si queda liviano, hazlo de a un brazo con pausa arriba.'],e:'Girar las muñecas durante el recorrido.'},
+packOH:{n:'Extensión de tríceps con mochila sobre la cabeza',m:'Tríceps',a:['oh',{db:'pack'}],w:1,c:['Toma la mochila cargada con ambas manos y súbela sobre la cabeza.','Baja por detrás de la cabeza doblando solo los codos, que apuntan al techo.','Estira sin bloquear de golpe.'],e:'Abrir los codos hacia los lados.'},
 diamond:{n:'Flexiones diamante',m:'Tríceps, pectoral',a:['pushup'],c:['Manos juntas bajo el pecho, formando un rombo con pulgares e índices.','Codos pegados al tronco al bajar.','Apoya las rodillas si no llegas a las repeticiones.'],e:'Abrir los codos hacia afuera.'},
 kickback:{n:'Patada de tríceps',m:'Tríceps',a:['kickback'],w:1,c:['Tronco inclinado, parte alta de los brazos pegada al tronco y paralela al suelo.','Estira los codos hacia atrás y aprieta 1 segundo.','Solo se mueve el antebrazo.'],e:'Balancear el brazo completo.'},
 benchDip:{n:'Fondos en banco',m:'Tríceps, pectoral',a:['dip'],c:['Manos en el borde del banco, piernas estiradas al frente.','Baja hasta que los codos lleguen a 90°, espalda cerca del banco.','Sube estirando los codos. Dobla las rodillas para hacerlo más fácil.'],e:'Bajar más de 90° y cargar el hombro.'},
@@ -329,6 +342,8 @@ wheel:{n:'Rueda abdominal de rodillas',m:'Abdomen',a:['wheel'],r:['6-10','8-12',
 plank:{n:'Plancha frontal',m:'Abdomen, zona lumbar',a:['plank'],r:['30','45','60'],u:'s',c:['Antebrazos en el suelo, codos bajo los hombros.','Cuerpo en línea recta, glúteos y abdomen apretados.','Respira normal; termina la serie cuando pierdas la posición.'],e:'Cadera caída o demasiado arriba.'},
 legraise:{n:'Elevación de piernas tumbado',m:'Abdomen inferior',a:['legraise'],r:['8-12','12-15','15-20'],c:['Boca arriba, manos junto a la cadera, zona lumbar pegada al suelo.','Sube las piernas juntas hasta la vertical.','Baja lento sin tocar el suelo. Dobla las rodillas para hacerlo más fácil.'],e:'Despegar la zona lumbar del suelo al bajar.'}
 };
+// Equivalente sin banda elástica de cada ejercicio con banda
+const ALT={gm:'packGm',bandRow:'packRow',bandRowW:'packBentW',bandBent:'packBent',bandPress:'pike',bandLat:'bottleLat',pullapart:'proneW',bandCurl:'packCurl',bandHammer:'bottleHammer',bandOH:'packOH'};
 // o = [sin mancuernas, con mancuernas, con mancuernas y banco]
 const RUT={
 A:{foco:'Sentadilla, empuje horizontal y remo',s:[['Piernas','main',[['squat'],['goblet']]],['Glúteos','acc',[['bridge','bridge1'],['bridgeDb','rdl'],['thrust','rdl']]],['Pecho','main',[['pushup'],['floorpress'],['benchpress']]],['Espalda','main',[['bandRow'],['row1'],['row1b']]],['Hombros','acc',[['bandPress','bandLat'],['dbPress','dbLat'],['pressSeated','dbLat']]],['Bíceps','acc',[['bandCurl','bandHammer'],['dbCurl','dbHammer'],['inclineCurl','dbHammer']]],['Tríceps','acc',[['bandOH','chairDip'],['dbOH','kickback'],['skull','benchDip']]],['Pantorrillas','calf',[['calf','calf1'],['calfDb','calf1Db']]],['Abdomen','core',[['wheel','legraise']]]]},
@@ -354,8 +369,8 @@ const TODAY=iso(new Date());
 
 /* ===== Estado y guardado ===== */
 const KEY='plan-fuerza-remo-v1';
-function defaults(){return {v:1,ts:0,equip:{db:false,bench:false},sched:['A','R','B','X','C','R','X'],start:monday(TODAY),pick:{},log:{},body:[]};}
-function merge(r){const d=defaults();if(!r||typeof r!=='object')return d;const s=Object.assign(d,r);s.equip=Object.assign({db:false,bench:false},r.equip||{});
+function defaults(){return {v:1,ts:0,equip:{db:false,bench:false,band:true},sched:['A','R','B','X','C','R','X'],start:monday(TODAY),pick:{},log:{},body:[]};}
+function merge(r){const d=defaults();if(!r||typeof r!=='object')return d;const s=Object.assign(d,r);s.equip=Object.assign({db:false,bench:false,band:true},r.equip||{});
   if(!Array.isArray(s.sched)||s.sched.length!==7)s.sched=defaults().sched;if(!Array.isArray(s.body))s.body=[];if(!s.log||typeof s.log!=='object')s.log={};if(!s.pick)s.pick={};return s;}
 let state;try{state=merge(JSON.parse(localStorage.getItem(KEY)));}catch(e){state=defaults();}
 let db=null,dirty=false,saving=false,saveT=null;
@@ -389,8 +404,11 @@ function presc(w,kind,ex){const p=phaseOf(w),q=p===3?2:p;let s,r,t;
   else [s,r,t]=[[3,'12-15',60],[3,'10-15',60]][q-1];
   if(p===3||w<=1)s=2;return {sets:s,reps:r,rest:t};}
 const typeOf=d=>(state.log[d]&&state.log[d].type)||state.sched[wd(d)];
-function tiers(o){const e=state.equip;return [o[0],e.db?o[1]:null,e.db&&e.bench?o[2]:null].filter(Boolean);}
-function avail(o){return [...new Set(tiers(o).flat())];}
+const noBand=o=>[...new Set(o.map(x=>ALT[x]||x))];
+function tiers(o){const e=state.equip;return [e.band===false?noBand(o[0]):o[0],e.db?o[1]:null,e.db&&e.bench?o[2]:null].filter(Boolean);}
+// Las variantes sin banda siempre se ofrecen en "Cambiar variante", aunque haya bandas
+function avail(o){return [...new Set(tiers(o).flat().concat(noBand(o[0])))];}
+const harder=()=>state.equip.band===false?'una mochila con más peso':'una banda más dura o una mochila con peso';
 function chosen(r,i,b){const o=RUT[r].s[i][2],t=tiers(o),top=t[t.length-1],p=state.pick[r+i];
   if(p&&p.b===b&&avail(o).includes(p.id))return p.id;return top[(b-1)%top.length];}
 function entry(d,create){if(!state.log[d]&&create)state.log[d]={type:typeOf(d),ex:{}};const e=state.log[d];if(e&&!e.ex)e.ex={};return e;}
@@ -406,7 +424,7 @@ function target(id,ex,kind,rx,w,d){const h=histOf(id,d,3),m=rx.reps.split('-').m
   if(ex.w&&kg){if(reps.every(r=>r>=mx)){const nk=kg+(kind==='main'?2:1);return {t:`Completaste el rango con ${num(kg)} kg. Hoy sube a ${num(nk)} kg y apunta a ${mn} repeticiones.`,kg:nk};}
     if(reps.some(r=>r<mn-2))return {t:`${num(kg)} kg quedó pesado para este rango. Baja 1 o 2 kg y busca ${mn} repeticiones limpias.`+stall,kg:Math.max(1,kg-(kind==='main'?2:1))};
     return {t:`Repite ${num(kg)} kg y suma al menos 1 repetición a alguna serie (rango ${rx.reps}).`+stall,kg};}
-  if(reps.every(r=>r>=mx))return {t:ex.u?`Ya dominas ${mx} segundos: súmale 10 segundos o levanta un pie.`:`Ya dominas el rango. Hazlo más difícil: bajada en 3 segundos, pausa, banda más dura o mochila con peso.`+stall};
+  if(reps.every(r=>r>=mx))return {t:ex.u?`Ya dominas ${mx} segundos: súmale 10 segundos o levanta un pie.`:`Ya dominas el rango. Hazlo más difícil: bajada en 3 segundos, pausa, ${harder()}.`+stall};
   return {t:`Suma al menos 1${ex.u?'0 segundos':' repetición'} respecto a la última vez (rango ${rx.reps}${ex.u?' s':''}).`+stall};}
 /* ===== Vistas ===== */
 function weekStrip(){const m=monday(sel);let h='<div class="week">';
@@ -421,7 +439,7 @@ function exCard(r,i,d,w){const slot=RUT[r].s[i],bk=blockOf(w),id=chosen(r,i,bk),
   const q=encodeURIComponent('cómo hacer '+ex.n+' técnica correcta');
   h+=`<div class="ex-b"><div class="figbox"><svg class="anim" viewBox="0 0 200 150" role="img" aria-label="Animación de ${esc(ex.n)}" data-a="${id}"></svg><a class="vid" href="https://www.youtube.com/results?search_query=${q}" target="_blank" rel="noopener">Ver videos del ejercicio en YouTube</a></div>
   <div class="info"><ul class="cues">${ex.c.map(c=>'<li>'+esc(c)+'</li>').join('')}</ul><p class="err"><b>Error común:</b> ${esc(ex.e)}</p>
-  ${ex.w?'<p class="small muted">Elige un peso con el que llegues al rango indicado sin perder la técnica. Cuando completes el máximo de repeticiones en todas las series, sube el peso.</p>':slot[1]==='core'?'':'<p class="small muted">Cuando superes el rango, hazlo más difícil: baja en 3 segundos, agrega una pausa, usa una banda más dura o una mochila con peso.</p>'}
+  ${ex.w?'<p class="small muted">Elige un peso con el que llegues al rango indicado sin perder la técnica. Cuando completes el máximo de repeticiones en todas las series, sube el peso.</p>':slot[1]==='core'?'':'<p class="small muted">Cuando superes el rango, hazlo más difícil: baja en 3 segundos, agrega una pausa, usa '+harder()+'.</p>'}
   ${avail(slot[2]).length>1?`<div><button type="button" class="btn sm" data-act="swap" data-r="${r}" data-i="${i}" data-b="${bk}">Cambiar variante</button></div>`:''}</div>`;
   if(d){const last=lastOf(id,d),tg=target(id,ex,slot[1],rx,w,d);
     h+='<div class="sets"><p class="small note"><b>Objetivo de hoy:</b> '+esc(tg.t)+'</p>';
@@ -447,7 +465,7 @@ function viewHoy(){const t=typeOf(sel),w=weekOf(sel),e=state.log[sel],done=e&&e.
   for(let k=0;k<R.s.length;k++)h+=exCard(t,k,sel,w);
   return h+`<div class="rowf"><button type="button" class="btn pri" data-act="finish">${done?'Desmarcar sesión':'Marcar sesión hecha'}</button><span class="small muted">Al terminar, estira 5 minutos pecho, cadera y parte posterior de las piernas.</span></div>`;}
 
-function equipBox(){const e=state.equip;return `<section class="card"><h3>Equipamiento disponible</h3><p class="small muted">La base usa peso corporal, bandas elásticas y rueda abdominal. Al activar mancuernas o banco, las rutinas cambian a las variantes con ese equipo.</p><div class="rowf"><label class="tog"><input type="checkbox" id="eq-db" data-f="eq-db" ${e.db?'checked':''}>Mancuernas</label><label class="tog"><input type="checkbox" id="eq-bench" data-f="eq-bench" ${e.bench?'checked':''} ${e.db?'':'disabled'}>Banco de ejercicios</label></div>${e.db?'':'<p class="small muted">El banco se usa junto con las mancuernas. Para comprar: un par ajustable que llegue a unos 20 kg por mano cubre todo el programa.</p>'}</section>`;}
+function equipBox(){const e=state.equip;return `<section class="card"><h3>Equipamiento disponible</h3><p class="small muted">La base usa peso corporal, bandas elásticas y rueda abdominal. Si no tienes bandas, desactívalas: esos ejercicios se reemplazan por variantes con mochila cargada, botellas de agua o solo peso corporal. Al activar mancuernas o banco, las rutinas cambian a las variantes con ese equipo.</p><div class="rowf"><label class="tog"><input type="checkbox" id="eq-band" data-f="eq-band" ${e.band!==false?'checked':''}>Bandas elásticas</label><label class="tog"><input type="checkbox" id="eq-db" data-f="eq-db" ${e.db?'checked':''}>Mancuernas</label><label class="tog"><input type="checkbox" id="eq-bench" data-f="eq-bench" ${e.bench?'checked':''} ${e.db?'':'disabled'}>Banco de ejercicios</label></div>${e.db?'':'<p class="small muted">El banco se usa junto con las mancuernas. Para comprar: un par ajustable que llegue a unos 20 kg por mano cubre todo el programa.</p>'}</section>`;}
 
 function viewPlan(){const w=weekOf(TODAY),s=state.sched,nF=s.filter(x=>'ABC'.includes(x)).length,nR=s.filter(x=>x==='R').length,nX=s.filter(x=>x==='X').length;
   const consec=s.some((x,i)=>'ABC'.includes(x)&&'ABC'.includes(s[(i+1)%7])),miss=['A','B','C'].filter(x=>!s.includes(x));
@@ -589,6 +607,7 @@ document.addEventListener('change',ev=>{const el=ev.target,f=el.dataset&&el.data
   if(f==='prof'){render();}
   else if(f==='sched'){state.sched[+el.dataset.i]=el.value;persist();render();}
   else if(f==='eq-db'){state.equip.db=el.checked;if(!el.checked)state.equip.bench=false;persist();render();}
+  else if(f==='eq-band'){state.equip.band=el.checked;persist();render();}
   else if(f==='eq-bench'){state.equip.bench=el.checked;persist();render();}
   else if(f==='bk-in'){const file=el.files&&el.files[0];if(!file)return;const rd=new FileReader();rd.onload=()=>{try{const r=JSON.parse(rd.result);if(!r||r.v!==1||!Array.isArray(r.sched))throw 0;state=merge(r);persist();render();$('#bk-msg').textContent='Respaldo restaurado.';}catch(e){$('#bk-msg').textContent='Ese archivo no es un respaldo válido de este plan.';}};rd.readAsText(file);}
 });
